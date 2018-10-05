@@ -57,12 +57,12 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.android.lifecycles.step5.Activity_step5">
+        <activity android:name="com.example.android.lifecycles.step5_solution.Activity_step5">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.android.lifecycles.step5_solution.Activity_step5">
+        <activity android:name="com.example.android.lifecycles.step5.Activity_step5">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

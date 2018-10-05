@@ -17,14 +17,21 @@
 package com.example.android.lifecycles.step5;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.example.android.codelabs.lifecycle.R;
+import com.example.android.lifecycles.step3.ChronoActivity3;
+import com.example.android.lifecycles.step3.LiveDataTimerViewModel;
 
 /**
  * Shows a SeekBar that should be synced with a value in a ViewModel.
@@ -42,8 +49,10 @@ public class Fragment_step5 extends Fragment {
         View root = inflater.inflate(R.layout.fragment_step5, container, false);
         mSeekBar = root.findViewById(R.id.seekBar);
 
-        // TODO: get ViewModel
+        mSeekBarViewModel = ViewModelProviders.of(getActivity()).get(SeekBarViewModel.class);
+
         subscribeSeekBar();
+
 
         return root;
     }
@@ -55,7 +64,7 @@ public class Fragment_step5 extends Fragment {
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // TODO: Set the ViewModel's value when the change comes from the user.
+                mSeekBarViewModel.seekbarValue.setValue(progress);
             }
 
             @Override
@@ -65,7 +74,13 @@ public class Fragment_step5 extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
 
-        // TODO: Update the SeekBar when the ViewModel is changed.
+
         // mSeekBarViewModel.seekbarValue.observe(...
+        mSeekBarViewModel.seekbarValue.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                mSeekBar.setProgress(integer);
+            }
+        });
     }
 }
